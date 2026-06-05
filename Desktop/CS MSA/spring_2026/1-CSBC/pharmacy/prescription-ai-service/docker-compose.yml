@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  # MongoDB
+  mongodb:
+    image: mongo:7.0
+    container_name: prescription_ai_mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: pharmacy_ai
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - prescription_ai_network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis
+  redis:
+    image: redis:7-alpine
+    container_name: prescription_ai_redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    networks:
+      - prescription_ai_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Prescription AI Service
+  ai-service:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: prescription_ai_service
+    ports:
+      - "8001:8001"
+    environment:
+      DEBUG: "false"
+      ENVIRONMENT: development
+      MONGODB_URL: mongodb://root:password@mongodb:27017/pharmacy_ai?authSource=admin
+      MONGODB_DB_NAME: pharmacy_ai
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+      LOG_LEVEL: INFO
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./uploads:/app/uploads
+      - ./data:/app/data
+    networks:
+      - prescription_ai_network
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8001 --reload
+
+volumes:
+  mongodb_data:
+  redis_data:
+
+networks:
+  prescription_ai_network:
+    driver: bridge

@@ -685,7 +685,7 @@
         </div>
 
         <aside class="profile-card">
-          <img src="profile.jpg" alt="Mohammed Ramadan — Backend Engineer" loading="eager" />
+          <img src= "ROMEO.jpg" alt="Mohammed Ramadan — Backend Engineer" loading="eager" />
           <div class="profile-badge">
             <div class="profile-badge-dot" aria-hidden="true"></div>
             <div class="profile-badge-text">
@@ -1039,11 +1039,11 @@
       const orig = btn.innerHTML;
       btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
       try {
-        const res = await fetch('Mohammed_Ramadan_CV.pdf');
+        const res = await fetch('MohammedRamadan.pdf');
         const blob = await res.blob();
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.href = url; a.download = 'Mohammed_Ramadan_CV.pdf';
+        a.href = url; a.download = 'MohammedRamadan.pdf';
         document.body.appendChild(a); a.click();
         document.body.removeChild(a); URL.revokeObjectURL(url);
         btn.innerHTML = '<i class="fas fa-check"></i> Downloaded!';

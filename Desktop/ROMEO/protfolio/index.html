@@ -25,7 +25,7 @@
       --soft: #64748b;
       --blue: #3b82f6;
       --blue-2: #60a5fa;
-      --blue-3: #93c5fd;
+      --blue-3: #070707;
       --cyan: #22d3ee;
       --violet: #8b5cf6;
       --accent-line: rgba(59,130,246,0.2);
@@ -563,6 +563,107 @@
     html[lang="ar"] .section-kicker { letter-spacing: .05em; }
     html[lang="ar"] .experience-card::before { left: auto; right: 0; border-radius: 3px 0 0 3px; }
 
+    /* ─── TECH STACK ICON GRID ───────────────────────────── */
+    .icon-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+      gap: 14px;
+    }
+    .icon-cell {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 12px; padding: 22px 10px;
+      border: 1px solid var(--glass-border); border-radius: 16px;
+      background: var(--surface); backdrop-filter: blur(10px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      transition: all .3s cubic-bezier(.34,1.56,.64,1);
+    }
+    .icon-cell:hover {
+      transform: translateY(-6px) scale(1.04);
+      border-color: rgba(59,130,246,0.4);
+      box-shadow: 0 16px 38px rgba(0,0,0,0.4), 0 0 24px rgba(59,130,246,0.12);
+    }
+    .icon-cell img { width: 32px; height: 32px; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,.3)); }
+    .icon-cell span {
+      font-size: .76rem; font-weight: 700; color: var(--muted);
+      font-family: var(--font-mono); text-align: center; letter-spacing: .01em;
+    }
+    .icon-cell:hover span { color: var(--text); }
+
+    /* ─── CERTIFICATIONS ─────────────────────────────────── */
+    .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 22px; }
+    .cert-card {
+      display: grid; grid-template-columns: 130px 1fr; gap: 22px;
+      border: 1px solid var(--glass-border); border-radius: var(--radius-lg);
+      padding: 26px; background: var(--surface);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 16px 50px rgba(0,0,0,0.3);
+      position: relative; overflow: hidden;
+      transition: all .35s cubic-bezier(.34,1.56,.64,1);
+    }
+    .cert-card::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px; background: linear-gradient(180deg, var(--cyan), var(--blue));
+      border-radius: 0 3px 3px 0;
+    }
+    .cert-card:hover { transform: translateY(-6px); border-color: rgba(59,130,246,0.4); box-shadow: 0 24px 60px rgba(0,0,0,0.4), 0 0 30px rgba(59,130,246,0.1); }
+    .cert-thumb-btn {
+      position: relative; border: 1px solid var(--glass-border); border-radius: 14px;
+      overflow: hidden; cursor: pointer; padding: 0; background: none; display: block;
+      width: 130px; height: 165px; flex-shrink: 0;
+    }
+    .cert-thumb-btn img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform .5s ease; }
+    .cert-thumb-btn:hover img { transform: scale(1.08); }
+    .cert-thumb-overlay {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: rgba(2,6,18,0.55); opacity: 0; transition: opacity .25s ease;
+      color: #fff; font-size: 1.1rem;
+    }
+    .cert-thumb-btn:hover .cert-thumb-overlay { opacity: 1; }
+    .cert-number {
+      font-family: var(--font-mono); font-size: .78rem; font-weight: 700;
+      color: var(--soft); letter-spacing: .12em; margin-bottom: 6px; display: block;
+    }
+    .cert-title { font-size: 1.12rem; font-weight: 800; margin-bottom: 4px; }
+    .cert-issuer { color: var(--blue-3); font-size: .88rem; font-weight: 700; margin-bottom: 10px; }
+    .cert-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .cert-meta span {
+      font-family: var(--font-mono); font-size: .74rem; font-weight: 600;
+      padding: 4px 10px; border-radius: 999px; color: var(--muted);
+      border: 1px solid rgba(148,163,184,0.15); background: rgba(255,255,255,0.04);
+    }
+    .cert-desc { color: var(--muted); font-size: .92rem; line-height: 1.65; margin-bottom: 14px; }
+    .cert-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .cert-btn {
+      display: inline-flex; align-items: center; gap: 8px; font-size: .82rem; font-weight: 700;
+      padding: 8px 14px; border-radius: 10px; cursor: pointer;
+      border: 1px solid rgba(59,130,246,0.3); background: rgba(59,130,246,0.08);
+      color: var(--blue-3); transition: all .25s ease;
+    }
+    .cert-btn:hover { background: rgba(59,130,246,0.18); color: #fff; border-color: rgba(59,130,246,0.55); }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 3000; display: none;
+      align-items: center; justify-content: center; padding: 40px 20px;
+      background: rgba(2,6,18,0.88); backdrop-filter: blur(10px);
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: min(900px, 92vw); max-height: 86vh; border-radius: 12px; box-shadow: 0 30px 90px rgba(0,0,0,0.6); border: 1px solid var(--glass-border); }
+    .lightbox-close {
+      position: absolute; top: 24px; right: 28px; width: 44px; height: 44px;
+      border-radius: 50%; border: 1px solid var(--glass-border); background: rgba(10,14,30,0.8);
+      color: #fff; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all .25s ease;
+    }
+    .lightbox-close:hover { background: rgba(59,130,246,0.25); border-color: rgba(59,130,246,0.5); transform: rotate(90deg); }
+
+    body.light .icon-cell { background: rgba(255,255,255,0.9); border-color: rgba(100,116,139,0.18); }
+    body.light .icon-cell span { color: #475569; }
+    body.light .cert-card { background: rgba(255,255,255,0.92); border-color: rgba(100,116,139,0.15); }
+    body.light .cert-title { color: #0f172a; }
+    body.light .cert-desc { color: #475569; }
+    body.light .cert-meta span { color: #475569; border-color: rgba(100,116,139,0.2); }
+    body.light .cert-btn { color: #1e40af; border-color: rgba(37,99,235,0.3); background: rgba(37,99,235,0.07); }
+
     /* ─── RESPONSIVE ─────────────────────────────────────── */
     @media (max-width: 980px) {
       .hero-grid { grid-template-columns: 1fr; }
@@ -584,6 +685,8 @@
       .btn { width: 100%; }
       h1 { font-size: 2.6rem; }
       .profile-card img { height: 360px; }
+      .cert-card { grid-template-columns: 1fr; }
+      .cert-thumb-btn { width: 100%; height: 200px; }
     }
     @media (max-width: 480px) {
       .stat-grid { grid-template-columns: 1fr; }
@@ -614,6 +717,7 @@
         <a href="#skills"     class="nav-link" role="menuitem" data-en="Skills"     data-ar="المهارات">Skills</a>
         <a href="#projects"   class="nav-link" role="menuitem" data-en="Projects"   data-ar="المشاريع">Projects</a>
         <a href="#experience" class="nav-link" role="menuitem" data-en="Experience" data-ar="الخبرة">Experience</a>
+        <a href="#certifications" class="nav-link" role="menuitem" data-en="Certifications" data-ar="الشهادات">Certifications</a>
         <a href="#contact"    class="nav-link pill-btn" role="menuitem" data-en="Contact" data-ar="تواصل">Contact</a>
       </div>
       <div class="nav-controls">
@@ -760,6 +864,38 @@
       </div>
     </section>
 
+    <!-- ── TECH STACK ── -->
+    <section id="techstack" class="container">
+      <div class="section-head reveal">
+        <p class="section-kicker" data-en="Tech Stack" data-ar="الأدوات التقنية">Tech Stack</p>
+        <h2 data-en="Tools I reach for, every day." data-ar="الأدوات التي أستخدمها يومياً.">Tools I reach for, every day.</h2>
+        <p class="section-copy" data-en="The languages, frameworks, and infrastructure behind every project below." data-ar="اللغات والأطر والبنية التحتية وراء كل مشروع أدناه.">The languages, frameworks, and infrastructure behind every project below.</p>
+      </div>
+      <div class="icon-grid reveal">
+        <div class="icon-cell"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#" loading="lazy"><span>C#</span></div>
+        <div class="icon-cell"><img src="https://cdn.simpleicons.org/dotnet" alt=".NET" loading="lazy"><span>ASP.NET Core</span></div>
+        <div class="icon-cell"><img src="https://cdn.simpleicons.org/springboot" alt="Spring Boot" loading="lazy"><span>Spring Boot</span></div>
+        <div class="icon-cell"><img src="https://cdn.simpleicons.org/openjdk" alt="Java" loading="lazy"><span>Java</span></div>
+        <div class="icon-cell"><img src="https://cdn.simpleicons.org/python" alt="Python" loading="lazy"><span>Python</span></div>
+        <div class="icon-cell"><img src="https://cdn.simpleicons.org/typescript" alt="TypeScript" loading="lazy"><span>TypeScript</span></div>
+        <div class="icon-cell"><img src="https://cdn.simpleicons.org/javascript" alt="JavaScript" loading="lazy"><span>JavaScript</span></div>
+        <div class="icon-cell"><img src="https://cdn.simpleicons.org/nodedotjs" alt="Node.js" loading="lazy"><span>Node.js</span></div>
+        <div class="icon-cell"><img src="https://cdn.simpleicons.org/express" alt="Express" loading="lazy"><span>Express</span></div>
+        <div class="icon-cell"><img src="https://cdn.simpleicons.org/react" alt="React" loading="lazy"><span>React</span></div>
+        <div class="icon-cell"><img src="https://cdn.simpleicons.org/flutter" alt="Flutter" loading="lazy"><span>Flutter</span></div>
+        <div class="icon-cell"><img src="https://cdn.simpleicons.org/dart" alt="Dart" loading="lazy"><span>Dart</span></div>
+        <div class="icon-cell"><img src="https://cdn.simpleicons.org/flask" alt="Flask" loading="lazy"><span>Flask</span></div>
+        <div class="icon-cell"><img src="https://cdn.simpleicons.org/microsoftsqlserver" alt="SQL Server" loading="lazy"><span>SQL Server</span></div>
+        <div class="icon-cell"><img src="https://cdn.simpleicons.org/mongodb" alt="MongoDB" loading="lazy"><span>MongoDB</span></div>
+        <div class="icon-cell"><img src="https://cdn.simpleicons.org/redis" alt="Redis" loading="lazy"><span>Redis</span></div>
+        <div class="icon-cell"><img src="https://cdn.simpleicons.org/docker" alt="Docker" loading="lazy"><span>Docker</span></div>
+        <div class="icon-cell"><img src="https://cdn.simpleicons.org/githubactions" alt="GitHub Actions" loading="lazy"><span>GH Actions</span></div>
+        <div class="icon-cell"><img src="https://cdn.simpleicons.org/swagger" alt="Swagger" loading="lazy"><span>Swagger</span></div>
+        <div class="icon-cell"><img src="https://cdn.simpleicons.org/git" alt="Git" loading="lazy"><span>Git</span></div>
+        <div class="icon-cell"><img src="https://cdn.simpleicons.org/github/ffffff" alt="GitHub" loading="lazy"><span>GitHub</span></div>
+      </div>
+    </section>
+
     <!-- ── PROJECTS ── -->
     <section id="projects" class="container">
       <div class="section-head reveal">
@@ -778,7 +914,31 @@
           <div class="tags"><span>Spring Boot</span><span>Node.js</span><span>MongoDB</span><span>JWT</span><span>Microservices</span><span>RBAC</span></div>
           <div class="btn-row"><a class="btn secondary" href="https://github.com/ROMEO-Eng/Pharmacy_Microservices_System" target="_blank" rel="noreferrer">GitHub <i class="fab fa-github"></i></a></div>
         </article>
+<article class="card project-card reveal reveal-delay-2">
+  <div class="project-thumb-wrap">
+    <img class="project-thumb"
+         src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=80"
+         alt="Pro Shop E-Commerce Platform"
+         loading="lazy" />
+    <div class="project-overlay"></div>
+  </div>
 
+  <h3>Pro Shop – E-Commerce Platform</h3>
+
+  <p>
+    Built a full-stack e-commerce platform with secure authentication,
+    product management, shopping cart, and order processing.
+  </p>
+
+  <div class="tags">
+    <span>ASP.NET Core</span>
+    <span>React</span>
+    <span>SQL Server</span>
+    <span>Entity Framework Core</span>
+    <span>JWT</span>
+    <span>REST API</span>
+  </div>
+</article>
         <article class="card project-card reveal reveal-delay-2">
           <div class="project-thumb-wrap">
             <img class="project-thumb" src="epl.png" onerror="this.src='https://images.unsplash.com/photo-1556056504-5c7696c4c28d?auto=format&fit=crop&w=900&q=80'" alt="ML EPL prediction" loading="lazy" />
@@ -849,6 +1009,60 @@
         <div class="tags" style="margin-top:20px"><span>ASP.NET Core</span><span>C#</span><span>SQL Server</span><span>REST APIs</span><span>Git</span><span>Agile</span></div>
       </div>
     </section>
+
+    <!-- ── CERTIFICATIONS ── -->
+    <section id="certifications" class="container">
+      <div class="section-head reveal">
+        <p class="section-kicker" data-en="Certifications" data-ar="الشهادات">Certifications</p>
+        <h2 data-en="Verified credentials, real organizations." data-ar="شهادات موثقة من جهات حقيقية.">Verified credentials, real organizations.</h2>
+        <p class="section-copy" data-en="Internship and coursework verified by the issuing companies and platforms." data-ar="تدريب ودورات موثقة من الشركات والمنصات المُصدرة.">Internship and coursework verified by the issuing companies and platforms.</p>
+      </div>
+      <div class="cert-grid">
+        <article class="cert-card reveal reveal-delay-1">
+          <button class="cert-thumb-btn" onclick="openLightbox('taqa-cert.jpg')" aria-label="View TAQA Arabia certificate">
+            <img src="taqa-cert.jpg" alt="TAQA Arabia Certificate of Internship" loading="lazy" />
+            <div class="cert-thumb-overlay"><i class="fas fa-magnifying-glass-plus"></i></div>  
+          </button>
+          <div>
+            <span class="cert-number">01 / 02</span>
+            <h3 class="cert-title" data-en="Certificate of Internship" data-ar="شهادة تدريب">Certificate of Internship</h3>
+            <p class="cert-issuer">TAQA Arabia · IT Division</p>
+            <div class="cert-meta">
+              <span data-en="Aug – Sep 2025" data-ar="أغسطس - سبتمبر 2025">Aug – Sep 2025</span>
+              <span data-en="Cairo, Egypt" data-ar="القاهرة، مصر">Cairo, Egypt</span>
+              <span data-en="Full-time, On-site" data-ar="دوام كامل، حضوري">Full-time, On-site</span>
+            </div>
+            <p class="cert-desc" data-en="Issued by TAQA Arabia's Chief HR Officer for completing a full-time IT Division internship, including an official experience letter confirming production engineering work." data-ar="صادرة من رئيس الموارد البشرية في طاقة عربية لإتمام تدريب بدوام كامل في قسم تقنية المعلومات، مع خطاب خبرة رسمي يؤكد العمل الهندسي الفعلي.">Issued by TAQA Arabia's Chief HR Officer for completing a full-time IT Division internship, including an official experience letter confirming production engineering work.</p>
+            <div class="cert-actions">
+              <a class="cert-btn" href="Certificate_RAMADAN.pdf" target="_blank" rel="noreferrer"><i class="fas fa-expand"></i> <span data-en="View Certificate" data-ar="عرض الشهادة">View Certificate</span></a>
+              <a class="cert-btn" href="Certificate_RAMADAN.pdf" download="Certificate_RAMADAN.pdf"><i class="fas fa-download"></i> <span data-en="Download" data-ar="تحميل">Download</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="cert-card reveal reveal-delay-2">
+          <button class="cert-thumb-btn" onclick="openLightbox('mongodb-cert.jpg')" aria-label="View MongoDB certificate">
+            <img src="mongodb-cert.jpg" alt="Introduction to MongoDB Certificate" loading="lazy" />
+            <div class="cert-thumb-overlay"><i class="fas fa-magnifying-glass-plus"></i></div>
+          </button>
+          <div>
+            <span class="cert-number">02 / 02</span>
+            <h3 class="cert-title" data-en="Introduction to MongoDB" data-ar="مقدمة في MongoDB">Introduction to MongoDB</h3>
+            <p class="cert-issuer">Mahara-Tech · ITI Platform</p>
+            <div class="cert-meta">
+              <span data-en="Completed 08/01/25" data-ar="تاريخ الإتمام 08/01/25">Completed 08/01/25</span>
+              <span>1h 8m</span>
+              <span>Go71POHwAR</span>
+            </div>
+            <p class="cert-desc" data-en="Completion certificate from the Information Technology Institute (ITI) platform covering core MongoDB concepts — document modeling, querying, and database fundamentals." data-ar="شهادة إتمام من منصة معهد تكنولوجيا المعلومات (ITI) تغطي أساسيات MongoDB — نمذجة المستندات والاستعلامات وأساسيات قواعد البيانات.">Completion certificate from the Information Technology Institute (ITI) platform covering core MongoDB concepts — document modeling, querying, and database fundamentals.</p>
+            <div class="cert-actions">
+              <a class="cert-btn" href="Course_Certificate_En.pdf" target="_blank" rel="noreferrer"><i class="fas fa-expand"></i> <span data-en="View Certificate" data-ar="عرض الشهادة">View Certificate</span></a>
+              <a class="cert-btn" href="Course_Certificate_En.pdf" download="Course_Certificate_En.pdf"><i class="fas fa-download"></i> <span data-en="Download" data-ar="تحميل">Download</span></a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
   </main>
 
   <!-- ── CONTACT ── -->
@@ -906,6 +1120,14 @@
   <footer>
     © 2026 <span>Mohammed Ramadan</span> — Backend Engineer.
   </footer>
+
+  <!-- ── CERTIFICATE LIGHTBOX ── -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">
+      <i class="fas fa-xmark"></i>
+    </button>
+    <img id="lightbox-img" src="" alt="Certificate preview" />
+  </div>
 
   <script>
     // ── Cursor glow ──
@@ -1031,6 +1253,35 @@
         burger.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
       });
     });
+
+    // ── Icon fallback (in case a CDN icon fails to load) ──
+    document.querySelectorAll('.icon-cell img').forEach(img => {
+      img.addEventListener('error', () => {
+        const fallback = document.createElement('i');
+        fallback.className = 'fas fa-microchip';
+        fallback.style.cssText = 'font-size:28px;color:var(--blue-2);';
+        img.replaceWith(fallback);
+      }, { once: true });
+    });
+
+    // ── Certificate lightbox ──
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
+    function openLightbox(src) {
+      lightboxImg.src = src;
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
     // ── Download CV ──
     async function downloadCV(e) {

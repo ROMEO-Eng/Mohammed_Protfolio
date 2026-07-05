@@ -1,2 +1,10 @@
-.vercel
-.env*
+# sensitive files
+*.pdf
+*.exe
+*.zip
+*.env
+*.docx
+
+# system files
+.DS_Store
+node_modules/

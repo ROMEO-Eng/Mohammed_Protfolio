@@ -1,10 +1,9 @@
 {
   "version": 2,
-  "public": "protfolio",
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "destination": "/protfolio/index.html"
     }
   ]
 }

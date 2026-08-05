@@ -1,9 +1,4 @@
 {
   "version": 2,
-  "rewrites": [
-    {
-      "source": "/((?!.*\\.(jpg|jpeg|png|gif|svg|pdf|css|js|ico|woff|woff2|ttf|eot)$).*)",
-      "destination": "/protfolio/index.html"
-    }
-  ]
+  "public": "protfolio"
 }
